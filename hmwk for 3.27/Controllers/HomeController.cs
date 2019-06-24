@@ -19,17 +19,6 @@ namespace hmwk_for_3._27.Controllers
                 Simchas = mgr.GetSimchas(),
                 ContributorCount = mgr.GetContributorCount()
             };
-            //IEnumerable<Simcha> simchas = mgr.GetSimchas();
-            //List<SimchaViewModel> svm = new List<SimchaViewModel>();
-            //foreach (Simcha s in simchas)
-            //{
-            //    svm.Add(new SimchaViewModel
-            //    {
-            //        Simcha = s,
-            //        ContributorCount = mgr.GetContributorCount(s.Id),
-            //        Total = mgr.GetSimchaTotal(s.Id)
-            //    });
-            //}
             return View(vm);
         }
 
@@ -41,24 +30,6 @@ namespace hmwk_for_3._27.Controllers
                 Total = mgr.GetTotalBalance()
             };
             return View(vm);
-            //IEnumerable<Contributor> contributors = mgr.GetContributors();
-            //List<ContributorsInViewModel> civm = new List<ContributorsInViewModel>();
-            //List<decimal> balances = new List<decimal>();
-            //foreach (Contributor c in contributors)
-            //{
-            //    civm.Add(new ContributorsInViewModel
-            //    {
-            //        Contributor = c,
-            //        Balance = mgr.GetBalance(mgr.GetDepositsForContributor(c.Id)),
-            //    });
-            //    balances.Add(mgr.GetBalance(mgr.GetDepositsForContributor(c.Id)));
-            //}
-            //ContributorViewModel cvm = new ContributorViewModel
-            //{
-            //    Contributors = civm,
-            //    Total = mgr.GetTotal(balances)
-            //};
-            //return View(cvm);
         }
 
         public ActionResult AddSimcha()
@@ -111,12 +82,6 @@ namespace hmwk_for_3._27.Controllers
             IEnumerable<ContributorHistory> deposits = mgr.GetDepositHistory(id).ToList();
             IEnumerable<ContributorHistory> contributions = mgr.GetContributionsHistory(id).ToList();
             List<ContributorHistory> actions = new List<ContributorHistory>();
-            //List<ContributorHistory> depositHistories = deposits.Select(d=> new ContributorHistory
-            //{
-            //    Amount = d.Amount,
-            //    Date = d.Date,
-            //    Action = "Deposit"
-            //}).ToList();
             foreach (ContributorHistory c in deposits)
             {
                 actions.Add(c);

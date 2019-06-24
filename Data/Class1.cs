@@ -29,12 +29,6 @@ namespace Data
         public decimal Balance { get; set; }
     }
 
-    //public class ContributorsInViewModel
-    //{
-    //    public Contributor Contributor { get; set; }
-    //    public decimal Balance { get; set; }
-    //}
-
     public class Contribution
     {
         public int SimchaId { get; set; }
@@ -165,38 +159,6 @@ namespace Data
             conn.Close();
             conn.Dispose();
         }
-
-        //public List<Deposit> GetDepositsForContributor(int id)
-        //{
-        //    SqlConnection conn = new SqlConnection(_conn);
-        //    SqlCommand cmd = conn.CreateCommand();
-        //    cmd.CommandText = "SELECT * FROM Deposits WHERE @id=ContributorId";
-        //    cmd.Parameters.AddWithValue("@id", id);
-        //    conn.Open();
-        //    List<Deposit> deposits = new List<Deposit>();
-        //    SqlDataReader reader = cmd.ExecuteReader();
-        //    while (reader.Read())
-        //    {
-        //        deposits.Add(new Deposit
-        //        {
-        //            Id = (int)reader["Id"],
-        //            Date = (DateTime)reader["Date"],
-        //            Amount = (decimal)reader["Amount"],
-        //            ContributorId = (int)reader["ContributorId"]
-        //        });
-        //    }
-        //    return deposits;
-        //}
-
-        //public decimal GetDepositBalance(List<Deposit> deposits)
-        //{
-        //    decimal counter = 0;
-        //    foreach (Deposit d in deposits)
-        //    {
-        //        counter += d.Amount;
-        //    }
-        //    return counter;
-        //}
 
         public decimal GetContributorDepositTotal(int id)
         {
@@ -486,115 +448,5 @@ namespace Data
             conn.Dispose();
             return amount;
         }
-
-        //    public List<string> GetContributorNamesBySimcha(int id)
-        //    {
-        //        SqlConnection conn = new SqlConnection(_conn);
-        //        SqlCommand cmd = conn.CreateCommand();
-        //        cmd.CommandText = "SELECT * FROM Contributors c JOIN SimchaContributors sc ON c.Id=sc.ContributorId WHERE sc.SimchaId=@id";
-        //        cmd.Parameters.AddWithValue("@id", id);
-        //        conn.Open();
-        //        List<string> contributors = new List<string>();
-        //        string name = "";
-        //        SqlDataReader reader = cmd.ExecuteReader();
-        //        while (reader.Read())
-        //        {
-        //            name += (string)reader["FirstName"];
-        //            name += (string)reader["LastName"];
-        //            contributors.Add(name);
-        //        }
-
-        //        return contributors;
-        //    }
-
-
-
-        //    //public List<Contribution> GetContributionForSimcha(int id)
-        //    //{
-        //    //    SqlConnection conn = new SqlConnection(_conn);
-        //    //    SqlCommand cmd = conn.CreateCommand();
-        //    //    cmd.CommandText = "SELECT * FROM SimchaContributors sc JOIN Contributors c ON c.Id=sc.ContributorId WHERE sc.SimchaId=@id";
-        //    //    cmd.Parameters.AddWithValue("@id", id);
-        //    //    conn.Open();
-        //    //    List<Contribution> contributions = new List<Contribution>();
-        //    //    SqlDataReader reader = cmd.ExecuteReader();
-        //    //    while (reader.Read())
-        //    //    {
-        //    //        contributions.Add(new Contribution
-        //    //        {
-        //    //            SimchaId = (int)reader["SimchaId"],
-        //    //            ContributorId = (int)reader["ContributorId"],
-        //    //            Amount = (decimal)reader["Amount"]
-        //    //        });
-        //    //    }
-        //    //    conn.Close();
-        //    //    conn.Dispose();
-        //    //    return contributions;
-        //    //}
-
-        //    public List<Contributor> GetContributorsBySimcha(int id)
-        //    {
-        //        SqlConnection conn = new SqlConnection(_conn);
-        //        SqlCommand cmd = conn.CreateCommand();
-        //        cmd.CommandText = "SELECT * FROM Contributors c JOIN SimchaContributors sc ON c.Id=sc.ContributorId WHERE sc.SimchaId=@id";
-        //        cmd.Parameters.AddWithValue("@id", id);
-        //        conn.Open();
-        //        List<Contributor> contributors = new List<Contributor>();
-        //        SqlDataReader reader = cmd.ExecuteReader();
-        //        while (reader.Read())
-        //        {
-        //            contributors.Add(new Contributor
-        //            {
-        //                Id = (int)reader["Id"],
-        //                FirstName = (string)reader["FirstName"],
-        //                LastName = (string)reader["LastName"],
-        //                Cell = (string)reader["Cell"],
-        //                Date = (DateTime)reader["Date"],
-        //                AlwaysInclude = (bool)reader["AlwaysInclude"]
-        //            });
-        //        }
-        //        return contributors;
-        //    }
-
-        //    public string GetSimchaNameById(int id)
-        //    {
-        //        SqlConnection conn = new SqlConnection(_conn);
-        //        SqlCommand cmd = conn.CreateCommand();
-        //        cmd.CommandText = "SELECT Name FROM Simchas WHERE Id=@id";
-        //        cmd.Parameters.AddWithValue("@id", id);
-        //        conn.Open();
-        //        string name = (string)cmd.ExecuteScalar();
-        //        conn.Close();
-        //        conn.Dispose();
-        //        return name;
-        //    }
-
-        //    //public decimal GetTotal(List<decimal> balances)
-        //    //{
-        //    //    decimal counter = 0;
-        //    //    foreach (decimal d in balances)
-        //    //    {
-        //    //        counter += d;
-        //    //    }
-        //    //    return counter;
-        //    //}
-
-
-        //    public void EditContributor(Contributor c)
-        //    {
-        //        SqlConnection conn = new SqlConnection(_conn);
-        //        SqlCommand cmd = conn.CreateCommand();
-        //        cmd.CommandText = "UPDATE Contributors SET FirstName=@firstName, LastName=@lastName, Cell=@cell, DateCreated=@dateCreated, AlwaysInclude=@alwaysInclude WHERE id=@id";
-        //        cmd.Parameters.AddWithValue("@id", c.Id);
-        //        cmd.Parameters.AddWithValue("@firstName", c.FirstName);
-        //        cmd.Parameters.AddWithValue("@lastName", c.LastName);
-        //        cmd.Parameters.AddWithValue("@cell", c.Cell);
-        //        cmd.Parameters.AddWithValue("@dateCreated", c.Date);
-        //        cmd.Parameters.AddWithValue("@alwaysInclude", c.AlwaysInclude);
-        //        conn.Open();
-        //        cmd.ExecuteNonQuery();
-        //        conn.Close();
-        //        conn.Dispose();
-        //    }
     }
 }
