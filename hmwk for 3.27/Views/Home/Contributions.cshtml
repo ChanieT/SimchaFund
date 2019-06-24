@@ -1,0 +1,49 @@
+﻿@using hmwk_for_3._27.Models
+@using Data
+@model ContributionsViewModel
+@{
+    ViewBag.Title = "Contributions";
+}
+
+<h2>Contributions</h2>
+<form method="post" action="/home/updatecontributions">
+    <div id="contributions">
+        <h2>@Model.Simcha.Name</h2>
+        <table class="table table-bordered">
+            <tr>
+                <th>Contribute</th>
+                <th>Contributor Name</th>
+                <th>AlwaysInclude</th>
+                <th>Balance</th>
+                <th>Amount</th>
+            </tr>
+
+            @{int i = 0;}
+            @foreach (SimchaContributor sc in Model.Contributors)
+            {
+            <tr>
+                @if (sc.Contributed)
+                {
+                    <td><input type="checkbox" name="contributors[@i].Contributed" value="true" checked="checked" /></td>
+                }
+                else
+                {
+                    <td><input type="checkbox" name="contributors[@i].Contributed" value="true" /></td>
+                }
+                <td>@sc.FirstName @sc.LastName</td>
+                <td><span class="@(sc.AlwaysInclude ? "glyphicon glyphicon-ok" : "glyphicon glyphicon-remove")"></span></td>
+                <td>@sc.Balance.ToString("C")</td>
+                <td><input type="text" name="contributors[@i].amount" value="@(sc.Amount == null ? "0" : "@sc.Amount")" /></td>
+            </tr>
+                <input type="hidden" name="contributors[@i].contributorId" value="@sc.ContributorId" />
+                <input type="hidden" name="contributors[@i].firstName" value="@sc.FirstName" />
+                <input type="hidden" name="contributors[@i].lastName" value="@sc.LastName" />
+                { i++; }
+
+            }
+        </table>
+        <input type="hidden" name="simchaid" value="@Model.Simcha.Id" />
+        <button class="btn btn-primary" id="updatecontributions">Update</button>
+    </div>
+</form>
+

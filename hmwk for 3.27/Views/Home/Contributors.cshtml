@@ -1,0 +1,129 @@
+﻿@using hmwk_for_3._27.Models
+@using Data
+@model ContributorViewModel
+
+@{
+    ViewBag.Title = "Contributors";
+}
+
+<h2>Contributors</h2>
+
+<div id="contributors">
+    <button id="new-contributor" class="btn btn-warning">New Contributor</button>
+    <h5>Total: @Model.Total</h5>
+
+    <table class="table table-bordered">
+        <tr>
+            <th>Deposit</th>
+            <th>Name</th>
+            <th>Cell</th>
+            <th>Balance</th>
+            <th>Always Include</th>
+            <th>Actions</th>
+        </tr>
+        @foreach (Contributor c in Model.Contributors)
+        {
+            <tr>
+                <td><button class="deposit btn btn-block" data-id="@c.Id">Deposit</button></td>
+                <td>@c.FirstName @c.LastName</td>
+                <td>@c.Cell</td>
+                <td>@c.Balance.ToString("C")</td>
+                <td><span class="@(c.AlwaysInclude ? "glyphicon glyphicon-ok" : "glyphicon glyphicon-remove")"></span></td>
+                <td>
+                    <a href="/home/showhistory?id=@c.Id" class="btn btn-default">History</a>
+                    <button class="btn btn-danger editContributor" data-id="@c.Id" data-firstname="@c.FirstName" data-lastname="@c.LastName" data-cell="@c.Cell" data-date="@c.Date.ToString("yyyy-MM-dd")" data-alwaysinclude="@c.AlwaysInclude">Edit</button>                
+                    @*<a href="/home/edit?id=@civm.Contributor.Id"></a>*@
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+<div class="modal col-md-4 col-md-offset-3" id="addContributorModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">×</span>
+                <span class="sr-only">Close</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">New Contributor</h4>
+        </div>
+        <div class="modal-body">
+            <form method="post" action="/home/submitcontributor">
+                <h2>New Contributor</h2>
+                <h3>First Name</h3>
+                <input type="text" name="firstname" placeholder="First Name" />
+                <h3>Last Name</h3>
+                <input type="text" name="lastname" placeholder="Last Name" />
+                <h3>Cell Number</h3>
+                <input type="text" name="cell" placeholder="Cell Number" />
+                <h3>Created Date</h3>
+                <input type="date" name="date" />
+                <h3>Initial Deposit</h3>
+                <input type="text" name="amount" placeholder="Initial Deposit" />
+                <input type="checkbox" name="alwaysinclude" value="true" /> Always Include<br />
+
+                <input type="hidden" id="new-contributor-hidden" name="contributorid" />
+                <button name="submitcontributor" class="btn btn-primary">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal col-md-4 col-md-offset-3" id="addDepositModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">×</span>
+                <span class="sr-only">Close</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">New Deposit</h4>
+        </div>
+        <div class="modal-body">
+            <form method="post" action="/home/submitdeposit">
+                <h3>Amount</h3>
+                <input type="text" name="amount" placeholder="Deposit Amount" />
+                <h3>Date</h3>
+                <input type="date" name="date" />
+
+                <input type="hidden" id="deposit-hidden" name="contributorid" />
+
+                <button id="submit-deposit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal col-md-4 col-md-offset-3" id="editContributorModal">
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">×</span>
+            <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Edit Contributor</h4>
+    </div>
+    <div class="modal-body">
+        <form method="post" action="/contributors/editContributor">
+            <input type="text" placeholder="First Name" name="FirstName" class="form-control" id="firstName" />
+            <input type="text" placeholder="Last Name" name="LastName" class="form-control" id="lastName" />
+            <input type="text" placeholder="Cell" name="Cell" class="form-control" id="cell" />
+            <input type="date" name="Date" class="form-control" id="date" />
+            <input type="checkbox" name="AlwaysInclude" value="true" id="alwaysInclude" /><label>Always Include </label><br />
+            <input type="hidden" name="Id" id="contributorIdModal" />
+            <button class="btn btn-danger">Update Contributor</button>
+        </form>
+    </div>
+</div>
+
+</div>
+
+
+@section scripts {
+    <script>
+    </script>
+    <script src="/Scripts/index.js"></script>
+}
+
+

@@ -1,0 +1,40 @@
+﻿@using hmwk_for_3._27.Models
+@using Data
+@model HistoryViewModel
+@{
+    ViewBag.Title = "ShowHistory";
+}
+
+<h2>ShowHistory for @Model.Contributor.FirstName @Model.Contributor.LastName</h2>
+
+<table class="table table-bordered" id="contributor-table">
+    <tr>
+        <th>Action</th>
+        <th>Date</th>
+        <th>Amount</th>
+    </tr>
+    @if (Model != null)
+    {
+        foreach(ContributorHistory action in Model.Actions)
+        {
+            <tr>
+                <td>@action.Action</td>
+                <td>@action.Date</td>
+                @if (action.Action == "Deposit")
+                {
+                    <td>@action.Amount.ToString("C")</td>
+                }
+                else
+                { 
+                    <td>-@action.Amount.ToString("C")</td>
+                }
+                
+            </tr>
+        }
+    }
+</table>
+
+<a href="/home/contributors">Go Back to Contributors</a>
+
+
+
